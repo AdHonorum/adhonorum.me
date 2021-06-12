@@ -1,0 +1,33 @@
+.section__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
+.section__skill {
+    width: 50%;
+    max-width: 640px;
+    z-index: 1;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.section__flex__right {
+    align-self: flex-end;
+    margin-right: 15rem;
+}
+
+@media (max-width: 1440px) {    
+    .section__flex__right {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    /*.section__skill {
+        max-width: 460px;
+    }*/
+}

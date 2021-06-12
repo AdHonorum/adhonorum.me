@@ -1,12 +1,16 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "adhonorum",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Ad Honorum site",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Ad Honorum <adhonorum@gmail.com>",
   "dependencies": {
+    "@fontsource/chakra-petch": "^4.4.1",
+    "@fontsource/teko": "^4.4.0",
+    "@react-three/fiber": "^6.2.2",
     "gatsby": "^3.4.1",
     "gatsby-plugin-gatsby-cloud": "^2.4.1",
+    "gatsby-plugin-glslify": "^1.0.0",
     "gatsby-plugin-image": "^1.4.0",
     "gatsby-plugin-manifest": "^3.4.0",
     "gatsby-plugin-offline": "^4.4.0",
@@ -14,10 +18,14 @@
     "gatsby-plugin-sharp": "^3.4.1",
     "gatsby-source-filesystem": "^3.4.0",
     "gatsby-transformer-sharp": "^3.4.0",
+    "glsl-noise": "0.0.0",
+    "glslify": "^7.1.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-responsive": "^8.2.0",
+    "three": "^0.129.0"
   },
   "devDependencies": {
     "prettier": "2.2.1"
