@@ -21,6 +21,15 @@ function ContentSections() {
                         formas y color a nuestros resultados.
                     </p>
                 </div>
+                <div className="section__skill section__flex__left">
+                    <h2>{`Experimentales`}</h2>
+                    <p style={{textAlign: 'justify'}}>
+                        Disfrutamos aprender cosas usando todo lo que esta a nuestro alcance
+                        para tener un mejor resultado. Amamos crear e implementar nuevos inventos, nuevas
+                        librerías y poner a prueba lo que diseñamos. La mejor manera de progresar,
+                        es jugando y equivocandose.
+                    </p>
+                </div>
             </div>
         </div>
     )

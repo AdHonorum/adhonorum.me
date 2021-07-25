@@ -20,6 +20,10 @@
     margin-right: 15rem;
 }
 
+.section__flex__left {
+    align-self: flex-start;
+}
+
 @media (max-width: 1440px) {    
     .section__flex__right {
         margin-right: 0;

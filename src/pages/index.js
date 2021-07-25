@@ -18,11 +18,12 @@ import fragmentNoiseFilterFX from "./../glsl/noiseFilterFX.frag";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import adHonorumImg from "./../images/logoBlanco.png"
 import ContentSections from "../components/ContentSections"
+import ComputerModel from "../components/3DModels/ComputerModel"
 
 extend({EffectComposer, FilmPass, ShaderPass, RenderPass, UnrealBloomPass});
 
 //nacho color: 0833a2
-const NACHO_COLOR = "#0833a2"
+const NACHO_COLOR = "#0277BD"
 
 function HelmetModel(props) {
   const group = useRef();
@@ -50,8 +51,8 @@ function HelmetModel(props) {
         <meshStandardMaterial 
           attach="material"
           color={NACHO_COLOR}
-          roughness={0.5}
-          metalness={0.8}
+          roughness={0.6}
+          metalness={0.1}
         />
       </mesh>
       <mesh
@@ -108,26 +109,25 @@ function LogoModel() {
   )
 }
 
-function Particle() {
-  const ref = useRef();  
-
-  useFrame((state) => {
-    ref.current.rotation.x = ref.current.rotation.y += 0.0005;
-  })
-
-  return(
-    <mesh ref={ref}>
-      <icosahedronGeometry args={[1,0]}/>
-      <meshBasicMaterial color="white" wireframe />
-    </mesh>
-  )
-}
-
 function SceneParticles() {
   let mesh = useRef();
+
+  // On Scroll
+  const onScroll = () => {    
+    mesh.current.position.y = 0 - window.pageYOffset/10;
+  };
+
+  // Add and remove the window listener
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }); 
+
   const particles = useMemo(() => {
     const temp = [];
-    for(let i = 0; i < 60; i++) {
+    for(let i = 0; i < 100; i++) {
       const t = Math.random() * 100;
       const factor = 20 + Math.random() * 100
       const speed = 0.01 + Math.random() / 200
@@ -145,7 +145,7 @@ function SceneParticles() {
     particles.forEach((particle, i) => {
       let { t, factor, speed, xFactor, yFactor, zFactor } = particle
       // There is no sense or reason to any of this, just messing around with trigonometric functions
-      t = particle.t += speed / 2
+      t = particle.t += speed / 10
       const a = Math.cos(t) + Math.sin(t * 1) / 10
       const b = Math.sin(t) + Math.cos(t * 2) / 10
       const s = Math.cos(t)
@@ -157,7 +157,7 @@ function SceneParticles() {
         (particle.my / 10) * b + yFactor + Math.sin((t / 10) * factor) + (Math.cos(t * 2) * factor) / 10,
         (particle.my / 10) * b + zFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 3) * factor) / 10
       )
-      //dummy.scale.set(s, s, s)
+      dummy.scale.set(s, s, s)
       dummy.rotation.set(s * 2, s * 2, s * 2)
       //dummy.rotation.x = dummy.rotation.y += 0.9;
       dummy.updateMatrix()
@@ -168,9 +168,9 @@ function SceneParticles() {
   })
 
   return(
-    <instancedMesh ref={mesh} args={[null, null, 20]}>
-      <icosahedronGeometry args={[1,0]}/>
-      <meshBasicMaterial color="#03A9F4" wireframe />
+    <instancedMesh position={[0,0,-20]} ref={mesh} args={[null, null, 60]}>
+      <sphereGeometry args={[0.5,32,32]}/>
+      <meshBasicMaterial color={NACHO_COLOR} />
     </instancedMesh>
   )
   
@@ -277,7 +277,7 @@ function CreativeModels() {
   })
 
   return(
-    <group ref={ref} position={[-30, -140, -30]}>
+    <group ref={ref} position={[-50, -135, -30]}>
       <mesh position={[-15,0,-5]}>
         <sphereBufferGeometry args={[8,8,8]} />
         <meshBasicMaterial wireframe color="#ffffff" />
@@ -301,13 +301,15 @@ const IndexPage = () => (
         <color attach="background" args={["#030303"]} />
         <Rig/>
         <Effects/>
-        <pointLight position={[0, 0, 15]}/>
+        <pointLight position={[0, 0, 55]}/>
         <Suspense fallback={"Loading..."}>
           <group scale={[0.8,0.8,0.8]} position={[0,2,0]}>
             <LogoModel />             
             <HelmetModel/>   
+            <SceneParticles/>
             <DummyGeomtry/>    
-            <CreativeModels />     
+            <CreativeModels />    
+            <ComputerModel position={[30, -180, 0]}/>
           </group>           
         </Suspense>
       </Canvas>      
